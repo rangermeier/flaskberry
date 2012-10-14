@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block contents %}
+
+<h2>System</h2>
+
+<div class="well span6">{{ uptime }}</div>
+<div class="span12">
+    <a class="btn btn-danger" href="{{ url_for('system.shutdown') }}"><i class="icon-off icon-white"></i> shutdown</a>
+    <a class="btn btn-danger" href="{{ url_for('system.reboot') }}"><i class="icon-refresh icon-white"></i> reboot</a>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+html,body {
+    height:100%;
+}
+body {
+    background: url(img/Raspi_Colour_bg.png);
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: 360px -30px;
+}
+.navbar .brand {
+    background: url(img/Raspi_Colour_40px.png);
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    background-position: 28px 5px;
+    padding: 0px 20px 0px;
+}
+.navbar .brand span{
+    display: none;
+}
+#wrapper {
+    min-height:100%;
+    position:relative;
+}
+#main {
+    margin-bottom: 0px;
+    padding-bottom:40px; /* Height of the footer */
+}
+@media (min-width: 980px) {
+    #main {
+        padding-top: 60px;
+    }
+}
+#disks h3 {
+    margin-bottom: 18px;
+}
+#footer {
+    border-top: 1px #ADADAD solid;
+    width:100%;
+    position:absolute;
+    bottom:0;
+    height:40px;
+    background-color: rgba(255,255,255,0.8)
+}
+#footer p {
+    padding-left: 20px;
+    font-size: 12px;
+}

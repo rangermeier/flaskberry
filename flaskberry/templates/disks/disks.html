@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block contents %}
+<div id="disks" class="row-fluid">
+<h2>Disks</h2>
+
+{% for disk in disks %}
+  <div class="span5"><div class="well">
+    {% if disk.mounted %}
+        {% if disk.label %}<span class="pull-right">{{ disk.label }}</span>{% endif %}
+        <h3>{{ disk.mountpoint }}</h3>
+        <div class="row-fluid usage">
+            <div class="span4" title="disk size">{{ disk.size }}</div>
+            <div class="span8">
+                <div class="progress">
+                  <div title="{{ disk.usage }} in use" class="bar" style="width: {{ disk.usage }};">{{ disk.usage }}</div>
+                </div>
+            </div>
+        </div>
+        <a class="btn btn-warning" href="{{ url_for('disks.unmount', uuid=disk.uuid) }}" title="unmount {{ disk.dev }} from {{ disk.mountpoint }}">
+            <i class="icon-minus icon-white"></i> unmount</a>
+    {% else %}
+        <h3>{% if disk.label %}{{ disk.label }}{% else %}{{ disk.dev }}{% endif %}</h3>
+        <p>Type: {{ disk.type}}</p>
+        <a class="btn btn-success" href="{{ url_for('disks.mount', uuid=disk.uuid) }}">
+            <i class="icon-plus icon-white"></i> mount</a>
+    {% endif %}
+  </div></div>
+{% endfor %}
+
+</div>
+
+{% endblock %}
