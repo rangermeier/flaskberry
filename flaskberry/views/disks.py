@@ -3,20 +3,21 @@ from flask import Blueprint, render_template, redirect, url_for, flash
 import subprocess
 import re
 import glob
-from flaskberry.models.disks import Disk
+import psutil
+from flaskberry.models.disk import Disk
 
 mod = Blueprint('disks', __name__)
 
 @mod.route('/')
 def index():
     disks = []
-    mounts = subprocess.check_output(["/bin/mount", "-l"]).splitlines( )
     regexp = re.compile("^/dev/sd.[1-9]")
-    for mount in mounts:
-        if re.match(regexp, mount):
-            disk = Disk(mount_info=mount)
-            disk.get_stats()
+    for md in psutil.disk_partitions(all=False):
+        if re.match(regexp, md.device):
+            disk = Disk(partition=md)
+            disk.get_usage()
             disks.append(disk)
+
     devices = glob.glob("/dev/sd*[0-9]")
     mounted_devices = [disk.dev for disk in disks]
     for dev in devices:
@@ -24,6 +25,7 @@ def index():
             disk = Disk(dev=dev)
             if disk.is_mountable():
                 disks.append(disk)
+
     return render_template('disks/disks.html', disks=disks)
 
 @mod.route('/<uuid>/mount')

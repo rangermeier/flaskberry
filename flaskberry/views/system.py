@@ -1,16 +1,20 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, render_template, redirect, url_for, flash
+import os
 import subprocess
-
-def check_output(*args):
-    return subprocess.Popen(*args, stdout=subprocess.PIPE).communicate()[0]
+import psutil
+from datetime import datetime
+from flask import Blueprint, render_template, redirect, url_for, flash
 
 mod = Blueprint('system', __name__)
 
 @mod.route('/')
 def index():
-    uptime = check_output(["uptime"])
-    return render_template('system/system.html', uptime=uptime)
+    uptime = datetime.now() - datetime.fromtimestamp(psutil.get_boot_time())
+    load = os.getloadavg()
+    return render_template('system/system.html',
+            uptime = str(uptime).split('.')[0],
+            load = load,
+        )
 
 @mod.route('/shutdown')
 def shutdown():

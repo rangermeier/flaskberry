@@ -10,14 +10,18 @@
         {% if disk.label %}<span class="pull-right">{{ disk.label }}</span>{% endif %}
         <h3>{{ disk.mountpoint }}</h3>
         <div class="row usage">
-            <div class="col-md-4" title="disk size">{{ disk.size }}</div>
+            <div class="col-md-4" title="disk size">
+                {{ disk.usage.total|filesizeformat }}</div>
             <div class="col-md-8">
                 <div class="progress">
-                  <div title="{{ disk.used }} in use" class="progress-bar" style="width: {{ disk.usage }};">{{ disk.usage }}</div>
+                  <div title="{{ disk.usage.used|filesizeformat }} in use"
+                    class="progress-bar" style="width: {{ disk.usage.percent }}%;">
+                    {{ disk.usage.percent }}%</div>
                 </div>
             </div>
         </div>
-        <a class="btn btn-warning" href="{{ url_for('disks.unmount', uuid=disk.uuid) }}" title="unmount {{ disk.dev }} from {{ disk.mountpoint }}">
+        <a class="btn btn-warning" href="{{ url_for('disks.unmount', uuid=disk.uuid) }}"
+            title="unmount {{ disk.dev }} from {{ disk.mountpoint }}">
             <span class="glyphicon glyphicon-minus"></span> Unmount</a>
     {% else %}
         <h3>{% if disk.label %}{{ disk.label }}{% else %}{{ disk.dev }}{% endif %}</h3>

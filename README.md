@@ -16,10 +16,10 @@ information on it.
 
 Flaskberry is written in Python an uses the [Flask][1] framework.
 
-To run Flaskberry you need Python 2.7 and Flask 0.10, a web-server and
-some WSGI-Container to run the application in and ideally something for
-monitoring.
-I recommend [nginx][2], [uWSGI][3] or [gunicorn][4] and [supervisor][5].
+To run Flaskberry you need Python 2.7, Flask 0.10, [psutil][2], a
+web-server and some WSGI-Container to run the application in and ideally
+something for monitoring.
+I recommend [nginx][3], [uWSGI][4] or [gunicorn][5] and [supervisor][6].
 There are sample configurations in the directory examples/ which assume
 the application (and the file you are reading now) is stored in
 /home/pi/flaskberry.
@@ -27,17 +27,18 @@ the application (and the file you are reading now) is stored in
 Change the SECRET_KEY in settings.py to something random.
 
 The application itself is released under the MIT License.
-It ships with a copy of [Twitter Bootstrap][6], which is licensed under
+It ships with a copy of [Twitter Bootstrap][7], which is licensed under
 the Apache License v2.0. Twitter Bootstrap contains Icons from
 Glyphicons Free, licensed under CC BY 3.0.
 Raspberry Pi is a trademark of the Raspberry Pi Foundation.
 
-2012, Rupert Angermeier
+2013, Rupert Angermeier
 
 
 [1]: http://flask.pocoo.org/
-[2]: http://nginx.org/
-[3]: http://projects.unbit.it/uwsgi/
-[4]: http://gunicorn.org/
-[5]: http://supervisord.org/
-[6]: http://twitter.github.com/bootstrap/
+[2]: https://code.google.com/p/psutil/
+[3]: http://nginx.org/
+[4]: http://projects.unbit.it/uwsgi/
+[5]: http://gunicorn.org/
+[6]: http://supervisord.org/
+[7]: http://twitter.github.com/bootstrap/

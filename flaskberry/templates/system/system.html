@@ -14,5 +14,8 @@
     </a>
 </p>
 <h3>System Information</h3>
-<div class="well col-md-6">{{ uptime }}</div>
+<div class="well col-md-6">
+    Uptime: {{ uptime }}<br>
+    Load Average: {{ load|join(', ') }}
+</div>
 {% endblock %}

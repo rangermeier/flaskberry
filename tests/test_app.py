@@ -18,7 +18,7 @@ class FlaskberryTestCase(unittest.TestCase):
     def test_system_page(self):
         rv = self.app.get('/system/')
         assert_in("System", rv.data)
-        assert_in("load average", rv.data)
+        assert_in("Load Average", rv.data)
         assert_in("Shutdown", rv.data)
         assert_in("Reboot", rv.data)
 
