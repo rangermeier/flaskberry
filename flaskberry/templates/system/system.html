@@ -3,10 +3,16 @@
 {% block contents %}
 
 <h2>System</h2>
-
-<div class="well span6">{{ uptime }}</div>
-<div class="span12">
-    <a class="btn btn-danger" href="{{ url_for('system.shutdown') }}"><i class="icon-off icon-white"></i> shutdown</a>
-    <a class="btn btn-danger" href="{{ url_for('system.reboot') }}"><i class="icon-refresh icon-white"></i> reboot</a>
-</div>
+<p>
+    <a class="btn btn-danger btn-lg" href="{{ url_for('system.shutdown') }}">
+        <span class="glyphicon glyphicon-off"></span>
+        Shutdown
+    </a>
+    <a class="btn btn-danger btn-lg" href="{{ url_for('system.reboot') }}">
+        <span class="glyphicon glyphicon-refresh"></span>
+        Reboot
+    </a>
+</p>
+<h3>System Information</h3>
+<div class="well col-md-6">{{ uptime }}</div>
 {% endblock %}

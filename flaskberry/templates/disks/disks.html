@@ -1,29 +1,29 @@
 {% extends "base.html" %}
 
 {% block contents %}
-<div id="disks" class="row-fluid">
 <h2>Disks</h2>
 
+<div id="disks" class="row">
 {% for disk in disks %}
-  <div class="span5"><div class="well">
+  <div class="col-md-4"><div class="well">
     {% if disk.mounted %}
         {% if disk.label %}<span class="pull-right">{{ disk.label }}</span>{% endif %}
         <h3>{{ disk.mountpoint }}</h3>
-        <div class="row-fluid usage">
-            <div class="span4" title="disk size">{{ disk.size }}</div>
-            <div class="span8">
+        <div class="row usage">
+            <div class="col-md-4" title="disk size">{{ disk.size }}</div>
+            <div class="col-md-8">
                 <div class="progress">
-                  <div title="{{ disk.usage }} in use" class="bar" style="width: {{ disk.usage }};">{{ disk.usage }}</div>
+                  <div title="{{ disk.used }} in use" class="progress-bar" style="width: {{ disk.usage }};">{{ disk.usage }}</div>
                 </div>
             </div>
         </div>
         <a class="btn btn-warning" href="{{ url_for('disks.unmount', uuid=disk.uuid) }}" title="unmount {{ disk.dev }} from {{ disk.mountpoint }}">
-            <i class="icon-minus icon-white"></i> unmount</a>
+            <span class="glyphicon glyphicon-minus"></span> Unmount</a>
     {% else %}
         <h3>{% if disk.label %}{{ disk.label }}{% else %}{{ disk.dev }}{% endif %}</h3>
         <p>Type: {{ disk.type}}</p>
         <a class="btn btn-success" href="{{ url_for('disks.mount', uuid=disk.uuid) }}">
-            <i class="icon-plus icon-white"></i> mount</a>
+            <span class="glyphicon glyphicon-plus"></span> Mount</a>
     {% endif %}
   </div></div>
 {% endfor %}
