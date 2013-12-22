@@ -16,7 +16,7 @@ information on it.
 
 Flaskberry is written in Python an uses the [Flask][1] framework.
 
-To run Flaskberry you need Python 2.7 and Flask 0.9, a web-server and
+To run Flaskberry you need Python 2.7 and Flask 0.10, a web-server and
 some WSGI-Container to run the application in and ideally something for
 monitoring.
 I recommend [nginx][2], [uWSGI][3] or [gunicorn][4] and [supervisor][5].
