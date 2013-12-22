@@ -14,8 +14,17 @@
     </a>
 </p>
 <h3>System Information</h3>
-<div class="well col-md-6">
+<p>
     Uptime: {{ uptime }}<br>
-    Load Average: {{ load|join(', ') }}
-</div>
+    <span title="1 min, 5 min, 15 min">Load Average:
+        {{ load|join(', ') }}</span><br>
+    Network: {{ net.bytes_sent|filesizeformat }} sent,
+        {{ net.bytes_recv|filesizeformat }} received<br>
+    Memory: {{ (memory.total - memory.available)|filesizeformat }} of
+        {{ memory.total|filesizeformat }} used
+        ({{ memory.percent }}%)<br>
+    Swap: {{ (swap.total - swap.free)|filesizeformat }} of
+        {{ swap.total|filesizeformat }} used
+        ({{ swap.percent }}%)<br>
+</p>
 {% endblock %}

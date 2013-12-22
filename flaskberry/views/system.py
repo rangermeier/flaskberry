@@ -10,10 +10,12 @@ mod = Blueprint('system', __name__)
 @mod.route('/')
 def index():
     uptime = datetime.now() - datetime.fromtimestamp(psutil.get_boot_time())
-    load = os.getloadavg()
     return render_template('system/system.html',
             uptime = str(uptime).split('.')[0],
-            load = load,
+            load = os.getloadavg(),
+            net = psutil.net_io_counters(),
+            memory = psutil.virtual_memory(),
+            swap = psutil.swap_memory(),
         )
 
 @mod.route('/shutdown')
