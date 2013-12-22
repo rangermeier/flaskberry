@@ -19,14 +19,14 @@ class FlaskberryTestCase(unittest.TestCase):
         rv = self.app.get('/system/')
         assert_in("System", rv.data)
         assert_in("load average", rv.data)
-        assert_in("shutdown", rv.data)
-        assert_in("reboot", rv.data)
+        assert_in("Shutdown", rv.data)
+        assert_in("Reboot", rv.data)
 
     # testing disk module requires sudo
     def test_disks_page(self):
         rv = self.app.get('/disks/')
         assert_in("Disks", rv.data)
-        assert_in("unmount", rv.data)
+        assert_in("Unmount", rv.data)
 
 if __name__ == '__main__':
     unittest.main()
