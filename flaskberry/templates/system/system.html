@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
+{% block header %}
+<script type="text/javascript">
+var refreshTarget = "#info"
+</script>
+<script type="text/javascript" src="{{ url_for("static", filename="refresh.js") }}"></script>
+{% endblock %}
+
 {% block contents %}
 
 <h2>System</h2>
@@ -14,7 +21,7 @@
     </a>
 </p>
 <h3>System Information</h3>
-<p>
+<p id="info">
     Uptime: {{ uptime }}<br>
     <span title="1 min, 5 min, 15 min">Load Average:
         {{ load|join(', ') }}</span><br>
