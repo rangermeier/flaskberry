@@ -79,18 +79,23 @@ class Disk(dict):
         # try empty media directories
         mi = iter(MOUNTPOINTS)
         mountpoint = mi.next()
-        while not os.listdir(mountpoint) == []:
+        while os.path.exists(mountpoint) and not os.listdir(mountpoint) == []:
             try:
                 mountpoint.next()
             except StopIteration:
-                flash("no empty mountpoints")
                 return
+        if not os.path.exists(mountpoint):
+            return None
         return mountpoint
 
     def mount(self):
-        if not self.is_mounted() and self.uuid_exists():
-            return subprocess.call(["sudo", "/bin/mount",
-                "/dev/disk/by-uuid/%s" % self.uuid, self.find_mountpoint()])
+        mountpoint = self.find_mountpoint()
+        if mountpoint and not self.is_mounted() and self.uuid_exists():
+            subprocess.call(["sudo", "/bin/mount",
+                "/dev/disk/by-uuid/%s" % self.uuid, mountpoint])
+            self.mounted = True
+            return True
+        return False 
 
     def unmount(self):
         if self.uuid_exists():

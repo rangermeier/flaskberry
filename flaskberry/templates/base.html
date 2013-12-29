@@ -17,8 +17,8 @@
             <div class="container">
                 <a class="navbar-logo" href="/" alt="Flaskberry"></a>
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for("system.index")}}">System</a></li>
-                    <li><a href="{{ url_for("disks.index")}}">Disks</a></li>
+                    <li><a href="{{ url_for("system.index")}}">{{ _('System') }}</a></li>
+                    <li><a href="{{ url_for("disks.index")}}">{{ _('Disks') }}</a></li>
                 </ul>
             </div>
         </nav>
@@ -36,10 +36,13 @@
 
         <div id="footer" class="text-muted">
             <div class="container">
-                <a href="https://github.com/rangermeier/flaskberry">Flaskberry</a>,
-                a simple web interface for the Raspberry Pi<br>
-                Raspberry Pi is a trademark of the
-                <a href="http://raspberrypi.org/">Raspberry Pi Foundation</a>.
+                {% autoescape false %}
+                {{ _('%(flaskberry)s, a simple web interface for the Raspberry Pi', 
+                    flaskberry = '<a href="https://github.com/rangermeier/flaskberry">Flaskberry</a>') }}
+                <br>
+                {{ _('Raspberry Pi is a trademark of the %(rpf)s',
+                    rpf = '<a href="http://raspberrypi.org/">Raspberry Pi Foundation</a>') }}
+                {% endautoescape %}
             </div>
         </div>
     </div>

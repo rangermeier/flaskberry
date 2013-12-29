@@ -5,6 +5,7 @@ import re
 import glob
 import psutil
 from flaskberry.models.disk import Disk
+from flask.ext.babel import gettext
 
 mod = Blueprint('disks', __name__)
 
@@ -31,17 +32,21 @@ def index():
 @mod.route('/<uuid>/mount')
 def mount(uuid):
     disk = Disk(uuid=uuid)
-    print disk.mount()
-    flash("Mounting %s" % disk.dev)
+    if disk.mount():
+        msg = gettext("Mounting %(device)s", device = disk.dev)
+    else:
+        msg = gettext("Can't mount %(device)s", device = disk.dev)
+    flash(msg)
     return redirect(url_for('.index'))
 
 @mod.route('/<uuid>/unmount')
 def unmount(uuid):
     disk = Disk(uuid=uuid)
     if disk.is_mounted:
+        msg = gettext("Unmounting %(device)s", device = disk.dev)
         disk.unmount()
-        flash("Unmounting %s" % disk.dev)
     else:
-        flash("Disk not mounted")
+        msg = gettext("Disk not mounted")
+    flash(msg)
     return redirect(url_for('.index'))
 

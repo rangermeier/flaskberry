@@ -4,6 +4,7 @@ import subprocess
 import psutil
 from datetime import datetime
 from flask import Blueprint, render_template, redirect, url_for, flash
+from flask.ext.babel import gettext
 
 mod = Blueprint('system', __name__)
 
@@ -20,13 +21,14 @@ def index():
 
 @mod.route('/shutdown')
 def shutdown():
-    flash("Shutting down.<br>When the LEDs on the board stop flashing, \
-    it should be safe to unplug your Raspberry Pi.")
+    flash(gettext("Shutting down.<br>When the LEDs on the board stop flashing, \
+        it should be safe to unplug your Raspberry Pi."))
     subprocess.call(["sudo", "halt"])
     return redirect(url_for('system.index'))
 
 @mod.route('/reboot')
 def reboot():
-    flash("Rebooting... please wait.<br>This will take approx. one minute.")
+    flash(gettext("Rebooting... please wait.<br>\
+        This will take approx. one minute."))
     subprocess.call(["sudo", "reboot"])
     return redirect(url_for('system.index'))

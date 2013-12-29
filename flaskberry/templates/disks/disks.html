@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block contents %}
-<h2>Disks</h2>
+<h2>{{ _('Disks') }}</h2>
 
 <div id="disks" class="row">
 {% for disk in disks %}
@@ -14,20 +14,21 @@
                 {{ disk.usage.total|filesizeformat }}</div>
             <div class="col-md-8">
                 <div class="progress">
-                  <div title="{{ disk.usage.used|filesizeformat }} in use"
+                {% set used = disk.usage.used|filesizeformat %}
+                  <div title="{{ _('%(used)s in use', used = used) }}"
                     class="progress-bar" style="width: {{ disk.usage.percent }}%;">
                     {{ disk.usage.percent }}%</div>
                 </div>
             </div>
         </div>
         <a class="btn btn-warning" href="{{ url_for('disks.unmount', uuid=disk.uuid) }}"
-            title="unmount {{ disk.dev }} from {{ disk.mountpoint }}">
-            <span class="glyphicon glyphicon-minus"></span> Unmount</a>
+            title="{{ _('Unmount %(device)s from %(mountpoint)s', device = disk.dev, mountpoint = disk.mountpoint) }}">
+            <span class="glyphicon glyphicon-minus"></span> {{ _('Unmount') }}</a>
     {% else %}
         <h3>{% if disk.label %}{{ disk.label }}{% else %}{{ disk.dev }}{% endif %}</h3>
-        <p>Type: {{ disk.type}}</p>
+        <p>{{ _('Type: %(type)s', type = disk.type) }}</p>
         <a class="btn btn-success" href="{{ url_for('disks.mount', uuid=disk.uuid) }}">
-            <span class="glyphicon glyphicon-plus"></span> Mount</a>
+            <span class="glyphicon glyphicon-plus"></span> {{ _('Mount') }}</a>
     {% endif %}
   </div></div>
 {% endfor %}

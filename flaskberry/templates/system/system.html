@@ -9,29 +9,32 @@ var refreshTarget = "#info"
 
 {% block contents %}
 
-<h2>System</h2>
+<h2>{{ _('System') }}</h2>
 <p>
     <a class="btn btn-danger btn-lg" href="{{ url_for('system.shutdown') }}">
         <span class="glyphicon glyphicon-off"></span>
-        Shutdown
+        {{ _('Shutdown') }}
     </a>
     <a class="btn btn-danger btn-lg" href="{{ url_for('system.reboot') }}">
         <span class="glyphicon glyphicon-refresh"></span>
-        Reboot
+        {{ _('Reboot') }}
     </a>
 </p>
-<h3>System Information</h3>
+<h3>{{ _('System Information') }}</h3>
 <p id="info">
-    Uptime: {{ uptime }}<br>
-    <span title="1 min, 5 min, 15 min">Load Average:
-        {{ load|join(', ') }}</span><br>
-    Network: {{ net.bytes_sent|filesizeformat }} sent,
-        {{ net.bytes_recv|filesizeformat }} received<br>
-    Memory: {{ (memory.total - memory.available)|filesizeformat }} of
-        {{ memory.total|filesizeformat }} used
-        ({{ memory.percent }}%)<br>
-    Swap: {{ (swap.total - swap.free)|filesizeformat }} of
-        {{ swap.total|filesizeformat }} used
-        ({{ swap.percent }}%)<br>
+    {{ _('Uptime: %(uptime)s', uptime = uptime) }}<br>
+    <span title="{{ _('1 min, 5 min, 15 min') }}">
+        {% set loads = load|join(", ") %}
+        {{ _('Load Average: %(loads)s', loads = loads) }}
+    </span><br>
+    {% set recv, sent = (net.bytes_recv|filesizeformat, net.bytes_sent|filesizeformat) %}
+    {{ _('Network: %(sent)s sent, %(recv)s received', sent = sent, recv = recv) }}<br>
+    {% set used, total = ( (memory.total - memory.available)|filesizeformat,
+        memory.total|filesizeformat) %}
+    {{ _('Memory: %(used)s of %(total)s used (%(percent)s%%)', used = used, total = total, percent = memory.percent) }}<br>
+    {% set used, total = ( (swap.total - swap.free)|filesizeformat,
+        swap.total|filesizeformat ) %}
+    {{ _('Swap: %(used)s of %(total)s used (%(percent)s%%)', 
+        used = used, total = total, percent = swap.percent) }}<br>
 </p>
 {% endblock %}
