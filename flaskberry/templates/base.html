@@ -20,6 +20,9 @@
                     {% for module in config['ENABLED_MODULES'] %}
                         <li><a href="{{ url_for(module+".index")}}">{{ _(module.capitalize()) }}</a></li>
                     {% endfor %}
+                    {% for url, link in config['EXTERNAL_LINKS'] %}
+                        <li><a href="{{ url }}">{{ link }}</a></li>
+                    {% endfor %}
                 </ul>
             </div>
         </nav>

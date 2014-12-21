@@ -8,6 +8,12 @@ ENABLED_MODULES = [
     "movies",
 ]
 
+# List of links to add to main navigation bar
+EXTERNAL_LINKS = [
+    # tuple of URL and name, e.g.
+    # ('http://192.168.1.1/admin', 'Router Admin'),
+]
+
 # Configuration for the 'movie player'
 # Path to where video files are stored
 MOVIES_DIR = "/mnt/media/videos"
