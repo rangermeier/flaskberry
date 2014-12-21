@@ -1,6 +1,13 @@
 DEBUG = False
 SECRET_KEY = "cH4ng3_M3"
 
+# List of enabled modules
+ENABLED_MODULES = [
+    "system",
+    "disks",
+    "movies",
+]
+
 # Configuration for the 'movie player'
 # Path to where video files are stored
 MOVIES_DIR = "/mnt/media/videos"
