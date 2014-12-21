@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block header %}
+<script type="text/javascript">
+var moviesUrl = "{{ config['MOVIES_URL'] }}"
+</script>
+<script type="text/javascript" src="{{ url_for("static", filename="movies.js") }}"></script>
+{% endblock %}
+
+{% block contents %}
+<h2>{{ _('Movies') }}</h2>
+
+<div id="movies" class="row">
+
+    <div class="col-md-12">
+        <div class="btn-group">
+        {% for char, movie_group in movies.iteritems() %}
+            <a href="#{{char}}" class="btn btn-default">{{char}}</a>
+        {% endfor %}
+        </div>
+    </div>
+
+    <div class="col-md-6">
+    {% for char, movie_group in movies.iteritems() %}
+        <h2 id="{{char}}">{{char}}</h2>
+        <ul>
+        {% for movie in movie_group %}
+            <li><a href="#" class="movie" data-movie="{{ movie.path|urlencode }}">{{ movie.name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endfor %}
+    </div>
+
+    <div class="col-md-6">
+        <video id="player" width="100%" controls></video>
+    </div>
+
+</div>
+
+{% endblock %}

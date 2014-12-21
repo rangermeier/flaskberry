@@ -6,6 +6,7 @@ A simple web application to manage your Raspberry Pi.
 Features:
  - shutdown and reboot
  - mount and unmout disks, USB drives, etc.
+ - simplistic HTML movie player
 
 Please bear in mind, that by running Flaskberry you are exposing an
 unsecured power off switch to your Raspberry Pi to the network and
@@ -24,7 +25,8 @@ There are sample configurations in the directory examples/ which assume
 the application (and the file you are reading now) is stored in
 /home/pi/flaskberry.
 
-Change the SECRET_KEY in settings.py to something random.
+Rename settings.example.py to settings.py, change the SECRET_KEY in to
+something random and adapt other options to your needs.
 
 The application itself is released under the MIT License.
 It ships with a copy of [Twitter Bootstrap][7], which is licensed under
@@ -32,7 +34,7 @@ the Apache License v2.0. Twitter Bootstrap contains Icons from
 Glyphicons Free, licensed under CC BY 3.0.
 Raspberry Pi is a trademark of the Raspberry Pi Foundation.
 
-2013, Rupert Angermeier
+2013-2015, Rupert Angermeier
 
 
 [1]: http://flask.pocoo.org/

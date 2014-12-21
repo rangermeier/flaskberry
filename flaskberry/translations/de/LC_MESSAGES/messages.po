@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Flaskberry\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-12-29 19:49+0100\n"
+"POT-Creation-Date: 2014-12-21 21:11+0100\n"
 "PO-Revision-Date: 2013-12-29 15:05+0100\n"
 "Last-Translator: Rupert Angermeier\n"
 "Language-Team: de <LL@li.org>\n"
@@ -25,12 +25,16 @@ msgstr ""
 msgid "Disks"
 msgstr "Laufwerke"
 
-#: templates/base.html:40
+#: templates/base.html:22 templates/movies/movies.html:11
+msgid "Movies"
+msgstr "Filme"
+
+#: templates/base.html:41
 #, python-format
 msgid "%(flaskberry)s, a simple web interface for the Raspberry Pi"
 msgstr "%(flaskberry)s, ein einfaches Web-Interface für den Raspberry Pi"
 
-#: templates/base.html:43
+#: templates/base.html:44
 #, python-format
 msgid "Raspberry Pi is a trademark of the %(rpf)s"
 msgstr "Raspberry Pi ist eine Schutzmarke der %(rpf)s "
@@ -126,6 +130,11 @@ msgstr "Hänge %(device)s aus"
 #: views/disks.py:49
 msgid "Disk not mounted"
 msgstr "Gerät nicht eingehängt"
+
+#: views/movies.py:15
+#, python-format
+msgid "Directory %(directory)s not found"
+msgstr "Verzeichnis %(directory)s nicht vorhanden"
 
 #: views/system.py:24
 msgid ""
