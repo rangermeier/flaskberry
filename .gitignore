@@ -1,6 +1,8 @@
 *.py[co]
 *~
 
+settings.py
+
 # Packages
 *.egg
 *.egg-info
