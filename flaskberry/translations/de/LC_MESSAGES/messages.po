@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Flaskberry\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-12-21 21:58+0100\n"
+"POT-Creation-Date: 2014-12-22 18:15+0100\n"
 "PO-Revision-Date: 2013-12-29 15:05+0100\n"
 "Last-Translator: Rupert Angermeier\n"
 "Language-Team: de <LL@li.org>\n"
@@ -66,6 +66,16 @@ msgstr "Einhängen"
 #: templates/movies/movies.html:11
 msgid "Movies"
 msgstr "Filme"
+
+#: templates/movies/movies.html:21
+msgid ""
+"This list is cached for performance reasons, click here to re-scan your "
+"library"
+msgstr "Diese Liste wird gecached, klicke hier um zu aktualisieren"
+
+#: templates/movies/movies.html:22
+msgid "Refresh"
+msgstr "Aktualisieren"
 
 #: templates/system/system.html:12
 msgid "System"

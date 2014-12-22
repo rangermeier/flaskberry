@@ -25,14 +25,22 @@ body {
     /* we don't use a collapsing menu, keep menu elements floating on small screens */
     float: left;
 }
+
 #main {
     margin-bottom: 0px;
     padding-bottom: 42px; /* Height of the footer */
     padding-top: 60px;
 }
+
 #disks h3 {
     margin: 0 0 12px;
 }
+
+#movies video {
+    margin-top: 1.8em;
+    background: #000;
+}
+
 #footer {
     border-top: 1px #adadad solid;
     padding-top: 4px;
