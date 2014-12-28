@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Flaskberry\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-12-22 18:15+0100\n"
+"POT-Creation-Date: 2014-12-28 17:20+0100\n"
 "PO-Revision-Date: 2013-12-29 15:05+0100\n"
 "Last-Translator: Rupert Angermeier\n"
 "Language-Team: de <LL@li.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: templates/base.html:44
+#: templates/base.html:58
 #, python-format
 msgid "%(flaskberry)s, a simple web interface for the Raspberry Pi"
 msgstr "%(flaskberry)s, ein einfaches Web-Interface für den Raspberry Pi"
 
-#: templates/base.html:47
+#: templates/base.html:61
 #, python-format
 msgid "Raspberry Pi is a trademark of the %(rpf)s"
 msgstr "Raspberry Pi ist eine Schutzmarke der %(rpf)s "
@@ -63,17 +63,37 @@ msgstr "Laufzeit: %(uptime)s"
 msgid "Mount"
 msgstr "Einhängen"
 
-#: templates/movies/movies.html:11
+#: templates/movies/movies.html:21
+msgid "Remote Control"
+msgstr "Fernsteuerung"
+
+#: templates/movies/movies.html:27
+msgid "Play/Pause"
+msgstr "Abspielen/Pause"
+
+#: templates/movies/movies.html:36
+msgid "Volume"
+msgstr "Lautstärke"
+
+#: templates/movies/movies.html:42
+msgid "Now Playing:"
+msgstr "Wiedergabe"
+
+#: templates/movies/movies.html:42
+msgid "Nothing selected"
+msgstr "Nichts ausgewählt"
+
+#: templates/movies/movies.html:53
 msgid "Movies"
 msgstr "Filme"
 
-#: templates/movies/movies.html:21
+#: templates/movies/movies.html:61
 msgid ""
 "This list is cached for performance reasons, click here to re-scan your "
 "library"
 msgstr "Diese Liste wird gecached, klicke hier um zu aktualisieren"
 
-#: templates/movies/movies.html:22
+#: templates/movies/movies.html:62
 msgid "Refresh"
 msgstr "Aktualisieren"
 
@@ -141,7 +161,7 @@ msgstr "Hänge %(device)s aus"
 msgid "Disk not mounted"
 msgstr "Gerät nicht eingehängt"
 
-#: views/movies.py:15
+#: views/movies.py:21
 #, python-format
 msgid "Directory %(directory)s not found"
 msgstr "Verzeichnis %(directory)s nicht vorhanden"

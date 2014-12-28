@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block header %}
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+<script type="text/javascript">
+var socketNamespace = "{{ url_for('movies.player') }}"
+</script>
+<script type="text/javascript" src="{{ url_for("static", filename="player.js") }}"></script>
+{% endblock %}
+
+{% block contents %}
+<div id="video-container">
+    <video id="player" width="100%" controls></video>
+</div>
+{% endblock %}

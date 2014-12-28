@@ -1,13 +1,19 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, render_template, redirect, flash, current_app, url_for
+from flask import Blueprint, render_template, redirect, flash, current_app, url_for, session
 from werkzeug.contrib.cache import SimpleCache
 import fnmatch
 import os
 from flask.ext.babel import gettext
+from flask.ext.socketio import send, emit, join_room, leave_room
+from .. import socketio
 
 mod = Blueprint('movies', __name__)
 
 cache = SimpleCache()
+
+status = {
+    'consumers': 0
+}
 
 @mod.route('/')
 def index():
@@ -15,19 +21,64 @@ def index():
         flash(gettext("Directory %(directory)s not found", directory = directory))
         return redirect("/")
 
-    html = cache.get("movies-html")
+    movies = cache.get("movies")
 
-    if html is None:
-        html = render_template('movies/movies.html', movies=find_movies())
-        cache.set('movies-html', html, timeout=7 * 24 * 60 * 60)
+    if movies is None:
+        movies = find_movies()
+        cache.set('movies', movies, timeout=7 * 24 * 60 * 60)
 
-    return html
-
+    return render_template('movies/movies.html', movies=movies)
 
 @mod.route('/refresh')
 def refresh():
-    cache.set('movies-html', None, timeout=7 * 24 * 60 * 60)
+    cache.set('movies', None, timeout=7 * 24 * 60 * 60)
     return redirect(url_for('.index'))
+
+@mod.route('/player')
+def player():
+    return render_template('movies/player.html')
+
+@socketio.on('register consumer', namespace='/movies/player')
+def socket_register_player(data):
+    global status
+    status['consumers'] += 1
+    join_room('consumers')
+    session["is_player"] = True
+    emit_status()
+
+@socketio.on('register controller', namespace='/movies/player')
+def socket_register_player(data):
+    join_room('controllers')
+    emit_status()
+
+@socketio.on('disconnect', namespace='/movies/player')
+def socket_disconnect():
+    global status
+    if session.get('is_player'):
+        leave_room('consumers')
+        status['consumers'] -= 1
+
+        # reset status if no more consumers are present
+        if status['consumers'] == 0:
+            status = {'consumers': 0}
+        emit_status()
+
+@socketio.on('play', namespace='/movies/player')
+def socket_play(data):
+    emit('play', data, room='consumers')
+
+@socketio.on('update status', namespace='/movies/player')
+def socket_status(data):
+    global status
+    fields = ["nowPlaying", "paused", "currentTime", "duration", "volume", "muted"]
+    for field in fields:
+        if data.has_key(field):
+            status[field] = data[field]
+    emit_status()
+
+def emit_status():
+    global status
+    emit('status', status, room='controllers')
 
 
 def find_movies():
