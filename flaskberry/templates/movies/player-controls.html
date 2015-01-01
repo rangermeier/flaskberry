@@ -1,0 +1,68 @@
+
+<script type="text/javascript">
+var moviesUrl = "{{ config['MOVIES_URL'] }}"
+var socketNamespace = "{{ url_for('movies.player') }}"
+var lbl = {
+    pause: '{{ _("Pause") }}',
+    play: '{{ _("Play") }}',
+    now_playing: '{{ _("Now Playing:") }}',
+    nothing_selcetd: '{{ _("Nothing selected") }}',
+    volume: '{{ _("Volume") }}'
+
+}
+</script>
+
+{% raw %}
+
+<script id="player-controls" type="text/mustache">
+<div class="row">
+    <div class="col-xs-4">
+        <button-pause></button-pause>
+        <button-fullscreen></button-fullscreen>
+    </div>
+    <div class="col-xs-1 col-xs-offset-1">
+        <button-mute/>
+    </div>
+    <div class="col-xs-6">
+        <slider-volume/>
+    </div>
+</div>
+<div>
+    <b>{{lbl "now_playing" }}</b>
+    <span id="now_playing">{{#if fileName}}{{ fileName }}{{ else }}{{lbl "nothing_selected" }}{{/if}}</span><br>
+</div>
+<div>
+    <slider-progress/>
+</div>
+</script>
+
+<script id="button-pause" type="text/mustache">
+<button class="btn btn-default" {{#unless enabled}}disabled="disabled"{{/unless}}>
+    <i class="glyphicon glyphicon-{{#if paused}}play{{else}}pause{{/if}}"></i>
+    {{#if paused}}{{lbl "play" }}{{else}}{{lbl "pause" }}{{/if}}
+</button>
+</script>
+
+<script id="button-fullscreen" type="text/mustache">
+<button class="btn btn-default {{#unless visible}}hidden{{/unless}}">
+    <i class="glyphicon glyphicon-fullscreen"></i>
+</button>
+</script>
+
+<script id="button-mute" type="text/mustache">
+<button class="btn btn-default pull-right">
+    <i class="glyphicon glyphicon-volume-{{ iconstate }}"></i>
+</button>
+</script>
+
+<script id="slider-progress" type="text/mustache">
+<div class="progress">
+    <div class="progress-bar {{ style }}" role="progressbar" style="width: {{ percent }}%">{{ current }}</div>
+    <div class="pull-right" id="duration">{{ total }}</div>
+</div>
+</script>
+
+{% endraw %}
+
+<div id="video-controls"></div>
+<script type="text/javascript" src="{{ url_for("static", filename="player-controls.js") }}"></script>

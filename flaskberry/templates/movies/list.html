@@ -1,0 +1,20 @@
+<h3>{{ _('Movies') }}</h3>
+<div>
+    <div class="btn-group">
+    {% for char, movie_group in movies.iteritems() %}
+        <a href="#{{char}}" class="btn btn-default">{{char}}</a>
+    {% endfor %}
+    </div>
+    <a href="{{ url_for('movies.refresh') }}"
+        title="{{ _('This list is cached for performance reasons, click here to re-scan your library') }}"
+        >{{ _('Refresh') }}</a>
+</div>
+
+{% for char, movie_group in movies.iteritems() %}
+    <h4 id="{{char}}">{{char}}</h4>
+    <ul>
+    {% for movie in movie_group %}
+        <li><a href="{{ movie.path|urlencode }}" class="movie">{{ movie.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% endfor %}

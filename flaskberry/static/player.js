@@ -1,8 +1,8 @@
 var $player, player
 
-var sendStatus = function() {
+function sendStatus() {
     var data = {
-        nowPlaying: player.src,
+        src: player.src,
         paused: player.paused,
         currentTime: player.currentTime.toFixed(2),
         duration: player.duration.toFixed(2),
@@ -12,21 +12,17 @@ var sendStatus = function() {
     socket.emit('update status', data)
 }
 
-/* SocketIO listeners */
-var socket = io.connect('http://' + document.domain + ':' + location.port + socketNamespace);
-socket.on('connect', function() {
-    socket.emit('register consumer', {})
-})
-socket.on('play', function(data){
-    if(data.url) {
-        $player.attr("src", data.url)
+function setPlayer(data){
+    if(data.src && player.src !== data.src) {
+        player.src = data.src
         player.load()
         player.play()
-    } else if(data.toggle) {
-        if(player.paused) {
-            player.play()
-        } else {
+    }
+    if(data.paused !== undefined) {
+        if(data.paused) {
             player.pause()
+        } else {
+            player.play()
         }
     }
     $.each(["currentTime", "volume", "muted"], function(i, prop){
@@ -34,14 +30,32 @@ socket.on('play', function(data){
             player[prop] = data[prop]
         }
     })
+}
+
+/* SocketIO listeners */
+if(!window.socket) {
+    socket = io.connect('http://' + document.domain + ':' + location.port + socketNamespace)
+}
+socket.on('connect', function() {
+    socket.emit('register consumer', {})
 })
+socket.on('play', setPlayer)
 
 $(document).ready(function(){
     $player = $("#player")
     player= $player.get(0)
 
+    var lastUpdate
     $player
         .on("play", sendStatus)
         .on("pause", sendStatus)
-        .on("timeupdate", sendStatus)
+        .on("timeupdate", function(){
+            var now = + new Date()
+            if(!lastUpdate || (lastUpdate + 1000) < now ){
+                lastUpdate = now
+                sendStatus()
+            }
+        })
+
+    $("#video-controls").append(can.view("#player-controls", statusMap))
 })

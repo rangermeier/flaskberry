@@ -2,13 +2,15 @@
 <html lang="en">
     <head>
         <meta charset='utf-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Flaskberry{% endblock %}</title>
         <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ url_for("static", filename="styles.css") }}">
         <script type="text/javascript" src="//code.jquery.com/jquery-2.1.3.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-        <link href="{{ url_for("static", filename="styles.css") }}" rel="stylesheet">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+        <script type="text/javascript" src="//canjs.com/release/2.1.4/can.jquery.js"></script>
+        <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
         {% block header %}{% endblock %}
     </head>
 
@@ -65,4 +67,4 @@
         </div>
     </div>
   </body>
-</html
+</html>

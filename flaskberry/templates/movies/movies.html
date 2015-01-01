@@ -1,75 +1,25 @@
 {% extends "base.html" %}
 
 {% block header %}
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
-<script type="text/javascript">
-var moviesUrl = "{{ config['MOVIES_URL'] }}"
-var socketNamespace = "{{ url_for('movies.player') }}"
-</script>
 <script type="text/javascript" src="{{ url_for("static", filename="movies.js") }}"></script>
+<script type="text/javascript">
+    var moviesUrl = "{{ config['MOVIES_URL'] }}"
+</script>
 {% endblock %}
 
 {% block contents %}
 
 <div id="movies">
-    <a class="btn btn-primary pull-right" href="{{ url_for(".player")}}">Open Video Player</a>
+    <span class="float-right">
+        <a class="btn btn-default" href="{{ url_for(".player")}}"><i class="glyphicon glyphicon-film"></i> {{ _("Video Player") }}</a>
+        <a class="btn btn-default" href="{{ url_for(".control")}}"><i class="glyphicon glyphicon-phone"></i> {{ _("Remote Control") }}</a>
+    </span>
 
     <div id="video-container">
         <video id="player" width="100%" controls></video>
     </div>
-    <div id="video-remote">
-    <h3>{{ _("Remote Control") }}</h3>
-        <div class="row">
-            <div class="col-xs-4">
-                <a href="#" class="pause btn btn-default">
-                    <i class="glyphicon glyphicon-pause"></i>
-                    <i class="glyphicon glyphicon-play"></i>
-                    {{ _("Play/Pause") }}
-                </a>
-            </div>
-            <div class="col-xs-1 col-xs-offset-1">
-                <div class="btn btn-default pull-right muted">
-                    <i class="glyphicon glyphicon-volume-off"></i>
-                </div>
-            </div>
-            <div class="col-xs-6">
-                <div class="progress volume" data-property="volume" title="{{ _("Volume") }}">
-                    <div class="progress-bar" role="progressbar"></div>
-                </div>
-            </div>
-        </div>
-        <div>
-            <b>{{ _("Now Playing:") }}</b> <span id="now_playing">{{ _("Nothing selected") }}</span><br>
-            <div class="progress jump-to" data-property="currentTime">
-                <div class="progress-bar progress-bar-striped" role="progressbar"></div>
-                <div class="pull-right" id="duration"></div>
-            </div>
-            <span id="position"></span>
-        </div>
-        
-    </div> 
 
-
-<h3>{{ _('Movies') }}</h3>
-<div>
-    <div class="btn-group">
-    {% for char, movie_group in movies.iteritems() %}
-        <a href="#{{char}}" class="btn btn-default">{{char}}</a>
-    {% endfor %}
-    </div>
-    <a href="{{ url_for('movies.refresh') }}" 
-        title="{{ _('This list is cached for performance reasons, click here to re-scan your library') }}"
-        >{{ _('Refresh') }}</a>
-</div>
-
-{% for char, movie_group in movies.iteritems() %}
-    <h4 id="{{char}}">{{char}}</h4>
-    <ul>
-    {% for movie in movie_group %}
-        <li><a href="{{ movie.path|urlencode }}" class="movie">{{ movie.name }}</a></li>
-    {% endfor %}
-    </ul>
-{% endfor %}
+    {% include "movies/list.html" %}
 
 </div>
 

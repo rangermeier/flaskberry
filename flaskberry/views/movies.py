@@ -18,16 +18,10 @@ status = {
 @mod.route('/')
 def index():
     if not os.path.isdir(current_app.config['MOVIES_DIR']):
-        flash(gettext("Directory %(directory)s not found", directory = directory))
+        flash(gettext("Directory %(directory)s not found", directory=directory))
         return redirect("/")
 
-    movies = cache.get("movies")
-
-    if movies is None:
-        movies = find_movies()
-        cache.set('movies', movies, timeout=7 * 24 * 60 * 60)
-
-    return render_template('movies/movies.html', movies=movies)
+    return render_template('movies/movies.html', movies=get_movies())
 
 @mod.route('/refresh')
 def refresh():
@@ -38,29 +32,26 @@ def refresh():
 def player():
     return render_template('movies/player.html')
 
+@mod.route('/control')
+def control():
+    return render_template('movies/control.html', movies=get_movies())
+
 @socketio.on('register consumer', namespace='/movies/player')
 def socket_register_player(data):
-    global status
     status['consumers'] += 1
     join_room('consumers')
     session["is_player"] = True
+    emit('play', status)
     emit_status()
 
 @socketio.on('register controller', namespace='/movies/player')
 def socket_register_player(data):
-    join_room('controllers')
     emit_status()
 
 @socketio.on('disconnect', namespace='/movies/player')
 def socket_disconnect():
-    global status
     if session.get('is_player'):
-        leave_room('consumers')
-        status['consumers'] -= 1
-
-        # reset status if no more consumers are present
-        if status['consumers'] == 0:
-            status = {'consumers': 0}
+        status['consumers'] = max(0, status['consumers'] - 1)
         emit_status()
 
 @socketio.on('play', namespace='/movies/player')
@@ -69,17 +60,24 @@ def socket_play(data):
 
 @socketio.on('update status', namespace='/movies/player')
 def socket_status(data):
-    global status
-    fields = ["nowPlaying", "paused", "currentTime", "duration", "volume", "muted"]
-    for field in fields:
+    fields = ["src", "paused", "currentTime", "duration", "volume", "muted", "fullscreen"]
+    for field in data.keys():
         if data.has_key(field):
             status[field] = data[field]
     emit_status()
 
 def emit_status():
-    global status
-    emit('status', status, room='controllers')
+    emit('status', status, broadcast=True)
 
+
+def get_movies():
+    movies = cache.get("movies")
+
+    if movies is None:
+        movies = find_movies()
+        cache.set('movies', movies, timeout=7 * 24 * 60 * 60)
+
+    return movies
 
 def find_movies():
     directory = current_app.config['MOVIES_DIR']

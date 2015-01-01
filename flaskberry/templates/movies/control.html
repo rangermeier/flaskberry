@@ -4,14 +4,14 @@
 <script type="text/javascript">
 var socketNamespace = "{{ url_for('movies.player') }}"
 </script>
-<script type="text/javascript" src="{{ url_for("static", filename="player.js") }}"></script>
+<script type="text/javascript" src="{{ url_for("static", filename="control.js") }}"></script>
 {% endblock %}
 
 {% block contents %}
 <div id="movies">
-    <div id="video-container">
-        <video id="player" width="100%"></video>
-    </div>
+    <h3>{{ _("Remote Control") }}</h3>
     {% include 'movies/player-controls.html' %}
+
+    {% include "movies/list.html" %}
 </div>
 {% endblock %}

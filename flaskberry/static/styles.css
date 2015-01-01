@@ -39,11 +39,18 @@ body {
     margin-top: 1.8em;
     background: #000;
 }
+#movies #video-controls > div {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
 #movies .progress {
     cursor: ew-resize;
 }
-#movies .progress.volume {
-    margin-top: 6px;
+#movies slider-volume .progress{
+    margin: 6px 0 0;
+}
+#movies .progress #duration {
+    pointer-events: none;
 }
 #movies #video-remote .col-xs-1 {
     padding: 0;
