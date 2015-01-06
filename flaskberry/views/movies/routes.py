@@ -1,19 +1,11 @@
 # -*- coding: utf-8 -*-
-from flask import Blueprint, render_template, redirect, flash, current_app, url_for, session
+from flask import render_template, redirect, flash, current_app, url_for, session
 from werkzeug.contrib.cache import SimpleCache
-import fnmatch
 import os
 from flask.ext.babel import gettext
-from flask.ext.socketio import send, emit, join_room, leave_room
-from .. import socketio
-
-mod = Blueprint('movies', __name__)
+from . import mod
 
 cache = SimpleCache()
-
-status = {
-    'consumers': 0
-}
 
 @mod.route('/')
 def index():
@@ -35,39 +27,6 @@ def player():
 @mod.route('/control')
 def control():
     return render_template('movies/control.html', movies=get_movies())
-
-@socketio.on('register consumer', namespace='/movies/player')
-def socket_register_player(data):
-    status['consumers'] += 1
-    join_room('consumers')
-    session["is_player"] = True
-    emit('play', status)
-    emit_status()
-
-@socketio.on('register controller', namespace='/movies/player')
-def socket_register_player(data):
-    emit_status()
-
-@socketio.on('disconnect', namespace='/movies/player')
-def socket_disconnect():
-    if session.get('is_player'):
-        status['consumers'] = max(0, status['consumers'] - 1)
-        emit_status()
-
-@socketio.on('play', namespace='/movies/player')
-def socket_play(data):
-    emit('play', data, room='consumers')
-
-@socketio.on('update status', namespace='/movies/player')
-def socket_status(data):
-    fields = ["src", "paused", "currentTime", "duration", "volume", "muted", "fullscreen"]
-    for field in data.keys():
-        if data.has_key(field):
-            status[field] = data[field]
-    emit_status()
-
-def emit_status():
-    emit('status', status, broadcast=True)
 
 
 def get_movies():
@@ -101,4 +60,4 @@ def find_movies():
                     'name': u_filename
                 })
 
-    return movies    
+    return movies
