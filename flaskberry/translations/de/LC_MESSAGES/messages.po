@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  Flaskberry\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-12-28 17:20+0100\n"
+"POT-Creation-Date: 2015-01-06 22:31+0100\n"
 "PO-Revision-Date: 2013-12-29 15:05+0100\n"
 "Last-Translator: Rupert Angermeier\n"
 "Language-Team: de <LL@li.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: templates/base.html:58
+#: templates/base.html:60
 #, python-format
 msgid "%(flaskberry)s, a simple web interface for the Raspberry Pi"
 msgstr "%(flaskberry)s, ein einfaches Web-Interface für den Raspberry Pi"
 
-#: templates/base.html:61
+#: templates/base.html:63
 #, python-format
 msgid "Raspberry Pi is a trademark of the %(rpf)s"
 msgstr "Raspberry Pi ist eine Schutzmarke der %(rpf)s "
@@ -63,39 +63,63 @@ msgstr "Laufzeit: %(uptime)s"
 msgid "Mount"
 msgstr "Einhängen"
 
-#: templates/movies/movies.html:21
+#: templates/movies/control.html:12 templates/movies/movies.html:15
 msgid "Remote Control"
 msgstr "Fernsteuerung"
 
-#: templates/movies/movies.html:27
-msgid "Play/Pause"
-msgstr "Abspielen/Pause"
-
-#: templates/movies/movies.html:36
-msgid "Volume"
-msgstr "Lautstärke"
-
-#: templates/movies/movies.html:42
-msgid "Now Playing:"
-msgstr "Wiedergabe"
-
-#: templates/movies/movies.html:42
-msgid "Nothing selected"
-msgstr "Nichts ausgewählt"
-
-#: templates/movies/movies.html:53
+#: templates/movies/list.html:1
 msgid "Movies"
 msgstr "Filme"
 
-#: templates/movies/movies.html:61
+#: templates/movies/list.html:9
 msgid ""
 "This list is cached for performance reasons, click here to re-scan your "
 "library"
 msgstr "Diese Liste wird gecached, klicke hier um zu aktualisieren"
 
-#: templates/movies/movies.html:62
+#: templates/movies/list.html:10
 msgid "Refresh"
 msgstr "Aktualisieren"
+
+#: templates/movies/movies.html:14
+msgid "Video Player"
+msgstr ""
+
+#: templates/movies/player-controls.html:6
+msgid "Pause"
+msgstr ""
+
+#: templates/movies/player-controls.html:7
+msgid "Play"
+msgstr ""
+
+#: templates/movies/player-controls.html:8
+msgid "Now Playing:"
+msgstr "Wiedergabe"
+
+#: templates/movies/player-controls.html:9
+msgid "Nothing selected"
+msgstr "Nichts ausgewählt"
+
+#: templates/movies/player-controls.html:10
+msgid "Volume"
+msgstr "Lautstärke"
+
+#: templates/movies/player-controls.html:11
+msgid "Subtitles"
+msgstr "Untertitel"
+
+#: templates/movies/player-controls.html:12
+msgid "No Subtitles"
+msgstr "Keine Untertitel"
+
+#: templates/movies/player-controls.html:13
+msgid ""
+"Subtitles provided by <a href=\"http://www.opensubtitles.org\" "
+"target=\"_blank\">OpenSubtitles.org</a>"
+msgstr ""
+"Untertitel von <a href=\"http://www.opensubtitles.org\" "
+"target=\"_blank\">OpenSubtitles.org</a>"
 
 #: templates/system/system.html:12
 msgid "System"
@@ -161,11 +185,6 @@ msgstr "Hänge %(device)s aus"
 msgid "Disk not mounted"
 msgstr "Gerät nicht eingehängt"
 
-#: views/movies.py:21
-#, python-format
-msgid "Directory %(directory)s not found"
-msgstr "Verzeichnis %(directory)s nicht vorhanden"
-
 #: views/system.py:24
 msgid ""
 "Shutting down.<br>When the LEDs on the board stop flashing,         it "
@@ -178,6 +197,14 @@ msgstr ""
 msgid "Rebooting... please wait.<br>        This will take approx. one minute."
 msgstr "Neustart... Bitte warten<br>Dieser Vorgang dauert in etwa eine Minute."
 
+#: views/movies/routes.py:20
+#, python-format
+msgid "Directory %(directory)s not found"
+msgstr "Verzeichnis %(directory)s nicht vorhanden"
+
 #~ msgid "No empty mountpoints"
 #~ msgstr "Keine freien Einhängepunkte"
+
+#~ msgid "Play/Pause"
+#~ msgstr "Abspielen/Pause"
 

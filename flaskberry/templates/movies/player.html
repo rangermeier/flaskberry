@@ -3,6 +3,7 @@
 {% block header %}
 <script type="text/javascript">
 var socketNamespace = "{{ url_for('movies.player') }}"
+var subtitleProxy = "{{ url_for('movies.subtitle_proxy') }}"
 </script>
 <script type="text/javascript" src="{{ url_for("static", filename="player.js") }}"></script>
 {% endblock %}

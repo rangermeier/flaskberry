@@ -7,16 +7,29 @@ function sendStatus() {
         currentTime: player.currentTime.toFixed(2),
         duration: player.duration.toFixed(2),
         volume: player.volume,
-        muted: player.muted
+        muted: player.muted,
+        subtitles: player.textTracks.length ? $player.find("track[kind=subtitles]").data("subtitles") : "none"
     }
     socket.emit('update status', data)
 }
 
 function setPlayer(data){
     if(data.src && player.src !== data.src) {
+        $player.find("track").remove()
         player.src = data.src
         player.load()
         player.play()
+    }
+    if(data.subtitles) {
+        $player.find("track").remove()
+        if(data.subtitles !== "none") {
+            $('<track />')
+                .attr("kind", "subtitles")
+                .attr("src", subtitleProxy + "?src=" + data.subtitles)
+                .data("subtitles", data.subtitles)
+                .prop("default", true)
+                .appendTo($player)
+        }
     }
     if(data.paused !== undefined) {
         if(data.paused) {

@@ -7,8 +7,10 @@ var lbl = {
     play: '{{ _("Play") }}',
     now_playing: '{{ _("Now Playing:") }}',
     nothing_selcetd: '{{ _("Nothing selected") }}',
-    volume: '{{ _("Volume") }}'
-
+    volume: '{{ _("Volume") }}',
+    subtitles: '{{ _("Subtitles")}}',
+    no_subtitles: '{{ _("No Subtitles")}}',
+    subtitles_credits: '{{ _("Subtitles provided by <a href=\"http://www.opensubtitles.org\" target=\"_blank\">OpenSubtitles.org</a>") }}'
 }
 </script>
 
@@ -18,13 +20,14 @@ var lbl = {
 <div class="row">
     <div class="col-xs-4">
         <button-pause></button-pause>
+        <select-subtitles></select-subtitles>
         <button-fullscreen></button-fullscreen>
     </div>
     <div class="col-xs-1 col-xs-offset-1">
-        <button-mute/>
+        <button-mute></button-mute>
     </div>
     <div class="col-xs-6">
-        <slider-volume/>
+        <slider-volume></slider-volume>
     </div>
 </div>
 <div>
@@ -32,8 +35,9 @@ var lbl = {
     <span id="now_playing">{{#if fileName}}{{ fileName }}{{ else }}{{lbl "nothing_selected" }}{{/if}}</span><br>
 </div>
 <div>
-    <slider-progress/>
+    <slider-progress></slider-progress>
 </div>
+<div>{{{lbl "subtitles_credits"}}}</div>
 </script>
 
 <script id="button-pause" type="text/mustache">
@@ -59,6 +63,26 @@ var lbl = {
 <div class="progress">
     <div class="progress-bar {{ style }}" role="progressbar" style="width: {{ percent }}%">{{ current }}</div>
     <div class="pull-right" id="duration">{{ total }}</div>
+</div>
+</script>
+
+<script id="select-subtitles" type="text/mustache">
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+        {{lbl "subtitles" }}
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li><a href="#" data-url="none">{{lbl "no_subtitles" }}</a></li>
+    {{#each subtitles}}
+        <li>
+            <a href="#" data-url="{{ url }}" title="{{ name }}">
+            <i class="glyphicon glyphicon-{{#isActive}}check{{ else }}unchecked{{/isActive}}"></i>
+            {{ language }}
+            </a>
+        </li>
+    {{/each}}
+    </ul>
 </div>
 </script>
 

@@ -51,9 +51,13 @@ body {
 }
 #movies .progress #duration {
     pointer-events: none;
+    margin-right: 5px
 }
 #movies #video-remote .col-xs-1 {
     padding: 0;
+}
+#movies select-subtitles .dropdown {
+    display: inline-block;
 }
 
 #footer {

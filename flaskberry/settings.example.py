@@ -22,5 +22,13 @@ MOVIES_EXT = (u".mp4", u".webm", u".ogg", u".ogv")
 # URL to the directory specified as MOVIES_DIR
 MOVIES_URL = "http://raspberry/videos/"
 
-MOVIES_DIR = "/home/ranger/Videos"
-MOVIES_URL = "http://localhost/~ranger/Videos/"
+# Configuration for subtitle laoding via opensubtitles.org
+# preferred languages
+MOVIES_OS_LANG = "eng"
+# your username/password, optional
+MOVIES_OS_USER = ""
+MOVIES_OS_PASSWORD = ""
+# User Agent
+MOVIES_OS_UA = "OSTestUserAgent"
+# API
+MOVIES_OS_API = "http://api.opensubtitles.org/xml-rpc"

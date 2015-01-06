@@ -32,7 +32,7 @@ def socket_play(data):
 
 @socketio.on('update status', namespace=namespace)
 def socket_status(data):
-    fields = ["src", "paused", "currentTime", "duration", "volume", "muted", "fullscreen"]
+    fields = ["src", "paused", "currentTime", "duration", "volume", "muted", "fullscreen", "subtitles"]
     for field in data.keys():
         if data.has_key(field):
             status[field] = data[field]

@@ -170,6 +170,41 @@ sliderComponent.extend({
     }
 })
 
+/* Subtitles Menu */
+can.Component.extend({
+    tag: "select-subtitles",
+    template: can.view("#select-subtitles"),
+    scope: {
+        subtitles: []
+    },
+    helpers: {
+        isActive: function(opts){
+            var selected = statusMap.attr("subtitles")
+            if(selected && opts.context.url.split("/").pop() === selected.split("/").pop()) {
+                return opts.fn()
+            } else {
+                return opts.inverse()
+            }
+        }
+    },
+    events: {
+        "button click": function() {
+            var scope = this.scope
+            if(statusMap.src) {
+                $.getJSON("/movies/subtitles?src="+statusMap.src)
+                .done(function(data){
+                    scope.subtitles.replace(data.subtitles)
+                })
+            }
+        },
+        "a click": function(el, ev) {
+            ev.preventDefault()
+            socket.emit("play", {
+                subtitles: el.data("url")
+            })
+        }
+    }
+})
 
 /* SocketIO listeners */
 if(!window.socket) {

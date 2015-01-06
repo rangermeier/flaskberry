@@ -8,7 +8,10 @@ Features
 
  - shutdown and reboot
  - mount and unmout disks, USB drives, etc.
- - simplistic HTML movie player, remote controllable via WebSockets
+ - HTML movie player
+   - remote controllable via WebSockets
+   - subtitle support through [opensubtitles.org][0]
+
 
 **Warning** Please bear in mind, that by running Flaskberry you are exposing an
 unsecured power off switch to your Raspberry Pi to the network and
@@ -61,6 +64,7 @@ Raspberry Pi is a trademark of the Raspberry Pi Foundation.
 2013-2015, Rupert Angermeier
 
 
+[0]: http://www.opensubtitles.org/
 [1]: http://flask.pocoo.org/
 [2]: https://code.google.com/p/psutil/
 [3]: https://github.com/miguelgrinberg/Flask-SocketIO
