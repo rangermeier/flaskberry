@@ -28,7 +28,3 @@ MOVIES_OS_LANG = "eng"
 # your username/password, optional
 MOVIES_OS_USER = ""
 MOVIES_OS_PASSWORD = ""
-# User Agent
-MOVIES_OS_UA = "OSTestUserAgent"
-# API
-MOVIES_OS_API = "http://api.opensubtitles.org/xml-rpc"

@@ -14,6 +14,9 @@ from . import mod
 
 cache = SimpleCache()
 
+OST_API = 'http://api.opensubtitles.org/xml-rpc'
+OST_USERAGENT = 'Flaskberry'
+
 @mod.route('/')
 def index():
     if not os.path.isdir(current_app.config['MOVIES_DIR']):
@@ -107,12 +110,12 @@ def os_search(path):
 
 
 def os_connect():
-    xmlrpc = xmlrpclib.ServerProxy(current_app.config['MOVIES_OS_API'], allow_none=True)
+    xmlrpc = xmlrpclib.ServerProxy(OST_API, allow_none=True)
     login = xmlrpc.LogIn(
         current_app.config['MOVIES_OS_USER'],
         current_app.config['MOVIES_OS_PASSWORD'],
         "en",
-        current_app.config['MOVIES_OS_UA']
+        OST_USERAGENT
     )
 
     if login.get('status') == '200 OK':
